@@ -15,7 +15,7 @@
 1- Clone the repository
 
 ```bash
-git clone https://github.com/williamjayjay/api-dev-events
+git clone https://github.com/williamjayjay/DevEventsAPI
 ```
 
 ## :rocket: Used libraries
