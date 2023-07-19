@@ -108,3 +108,5 @@ C:\Users\luta_\Documents\repo-vssutido\github\DevEventsAPI\AwesomeDevEvents.API\
 C:\Users\luta_\Documents\repo-vssutido\github\DevEventsAPI\AwesomeDevEvents.API\obj\Debug\net7.0\AwesomeDevEvents.API.csproj.CopyComplete
 C:\Users\luta_\Documents\repo-vssutido\github\DevEventsAPI\AwesomeDevEvents.API\obj\Debug\net7.0\AwesomeDevEvents.API.genruntimeconfig.cache
 C:\Users\luta_\Documents\repo-vssutido\github\DevEventsAPI\AwesomeDevEvents.API\obj\Debug\net7.0\ref\AwesomeDevEvents.API.dll
+C:\Users\luta_\Documents\repo-vssutido\github\DevEventsAPI\AwesomeDevEvents.API\bin\Debug\net7.0\AwesomeDevEvents.API.xml
+C:\Users\luta_\Documents\repo-vssutido\github\DevEventsAPI\AwesomeDevEvents.API\obj\Debug\net7.0\AwesomeDevEvents.API.xml
