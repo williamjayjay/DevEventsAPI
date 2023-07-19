@@ -1,6 +1,7 @@
 ﻿using AwesomeDevEvents.API.Entities;
 using AwesomeDevEvents.API.Persistence;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeDevEvents.API.Controllers
@@ -21,17 +22,22 @@ namespace AwesomeDevEvents.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var devEvents = _context.DevEvents.Where(d => !d.IsDeleted).ToList();
-            return Ok(devEvents);
+
+            var devEvent = _context.DevEvents
+            .Include(de => de.Speakers).ToList();
+
+            return Ok(devEvent);
         }
 
         // api/dev-events/12312312 GET
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
-            var devEvent = _context.DevEvents.SingleOrDefault(d => d.Id == id);
+            var devEvent = _context.DevEvents
+                .Include(de => de.Speakers)
+                .SingleOrDefault(d => d.Id == id);
 
-            if(devEvent == null)
+            if (devEvent == null)
             {
                 return NotFound();
             }
@@ -45,14 +51,15 @@ namespace AwesomeDevEvents.API.Controllers
         public IActionResult Post(DevEvent devEvent)
         {
             _context.DevEvents.Add(devEvent);
+            _context.SaveChanges();
 
-            return CreatedAtAction(nameof(GetById), new {id = devEvent.Id} , devEvent);
+            return CreatedAtAction(nameof(GetById), new { id = devEvent.Id }, devEvent);
 
         }
 
         // api/dev-events/12345321 PUT
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id,DevEvent devEventInput)
+        public IActionResult Update(Guid id, DevEvent devEventInput)
         {
             var devEvent = _context.DevEvents.SingleOrDefault(d => d.Id == id);
 
@@ -62,6 +69,9 @@ namespace AwesomeDevEvents.API.Controllers
             }
 
             devEvent.Update(devEventInput.Title, devEventInput.Description, devEventInput.StartDate, devEventInput.EndDate);
+
+            _context.DevEvents.Update(devEvent);
+            _context.SaveChanges();
 
             return NoContent();
 
@@ -79,6 +89,7 @@ namespace AwesomeDevEvents.API.Controllers
             }
 
             devEvent.Delete();
+            _context.SaveChanges();
 
             return NoContent();
         }
@@ -87,14 +98,18 @@ namespace AwesomeDevEvents.API.Controllers
         [HttpPost("{id}/speakers")]
         public IActionResult PostSpeaker(Guid id, DevEventSpeaker speaker)
         {
-            var devEvent = _context.DevEvents.SingleOrDefault(d => d.Id == id);
 
-            if (devEvent == null)
+            speaker.DevEventId = id;
+
+            var devEvent = _context.DevEvents.Any(d => d.Id == id);
+
+            if (!devEvent)
             {
                 return NotFound();
             }
 
-            devEvent.Speakers.Add(speaker);
+            _context.DevEventSpeakers.Add(speaker);
+            _context.SaveChanges();
 
             return NoContent();
 
