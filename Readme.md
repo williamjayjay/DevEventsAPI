@@ -21,6 +21,8 @@ git clone https://github.com/williamjayjay/DevEventsAPI
 ## :rocket: Used libraries
 
 - [ASP NET Core 7]
+- [Entity FrameWork]
+- [SQL Server]
 
 ## :man_technologist: Author
 
