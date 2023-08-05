@@ -7,7 +7,7 @@ namespace AwesomeDevEvents.API.Persistence
     {
         public DevEventsDbContext(DbContextOptions<DevEventsDbContext> options) : base(options)
         {
-            
+
         }
         public DbSet<DevEvent> DevEvents { get; set; }
 
@@ -38,12 +38,12 @@ namespace AwesomeDevEvents.API.Persistence
 
             });
 
-            builder.Entity<DevEventSpeaker>(e => 
-            { 
-                e.HasKey(e=>e.Id);
+            builder.Entity<DevEventSpeaker>(e =>
+            {
+                e.HasKey(e => e.Id);
             });
         }
 
- 
+
     }
 }
